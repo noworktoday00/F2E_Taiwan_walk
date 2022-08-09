@@ -1,0 +1,18 @@
+.search{
+  margin-top: 10vh;
+}
+.suggest {
+    a {
+        max-width: 255px;
+        height: 124px;
+        color:white;
+        padding: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        background-size: cover;
+        background-position: center center;
+        h4:hover {
+          font-size: 28px;
+        }
+    }
+}

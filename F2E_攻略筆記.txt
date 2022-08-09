@@ -1,0 +1,67 @@
+交通部 TDX API 資料
+
+API 物件資料格式，要怎麼篩選
+
+網址介接：
+是可以直接使用的 是用 swagger 的介面
+
+可以使用 Request url 找到資料
+
+觀光相關的可以用 ScenicSpotTourismInfo 
+的物件去看所需要的資料要用什麼叫出來
+
+swagger 文件 也有用 網址參數去篩選資料
+
+先了解 API  研究好了知道什麼該怎麼用
+接起來才會比較好接
+
+網址參數篩選資料可以避免資料太大包，
+邏輯約莫就是在 "$select=後面列出來"
+ex: Name%2CAddress&$top=30&$format=JSON
+名稱,地址,前 30 筆.格式=JSON
+
+用網址就可以做到的事情
+在資料傳輸過程就會少很多不必要的浪費。
+
+網址裡面有大括號這種方式，
+就是有屬於它的功能
+例如縣市觀光景點資料就可以有地點可以
+依照API定義的英文名稱進行調整篩選資料
+
+主要載入兩個套件
+1. axios.js
+2. sha.js
+sha.js 是針對 TDX api 進行加解密用的套件
+
+data-element / data-category="??????" 在 HTML 標籤加上這樣的屬性去做控制
+
+使用 ul 裡面的 a 標籤作為控制可以監聽整個 ul
+list.addEventListener('click',function(e){
+    // 這邊是取消 a 連結預設的跳轉，才不會一點擊就跑到網頁最頂端
+    e.preventDefualt();
+
+    // 這邊是監聽點擊到的選項是什麼，如果不是 'A' ( a 連結)，就不會有反應 
+    // e.target.nodeName 是一個好用的東西 請記憶起來 !!!
+    if(e.target.nodeName !== 'A'){
+        return;
+    }
+    // 這邊的 e.target.nodeName 指的是 target 到的 element 的 nodeName(結點) 是什麼
+
+    // 抓出點擊選項的 data-category
+    const category =e.target.getAttribute('data-category');
+
+    // 使用 axios 這邊注意，是加入了 api 的 filter 功能，所以依照 api 的規範 往中段要改成 $filter=conatins(class,'${category}') 這樣的規格去加入 api filter 的功能
+    axios.get(`網址$filter=conatins(class,'${category}')&.....=JSON`,{headers參數})
+    .then((res)=>{
+        組字串~
+    })
+    .catch((res)=>{})
+})
+
+在不知道類別的情況下要怎麼處理呢???
+
+20220808 今天雷點：
+1. API 網址的符號是有預留的 可以記一下 %24、%27、%28、%29 ...是啥，看網址會比較順利
+2. a 連結裡面就不要隨便再下什麼 h4 了乾，要調整再體大小直接在 a 的 class 裡面加 h4 就好，害我在那邊找為什麼點了沒反應找半天，可惡。
+
+window.location.herf : 可以找到網址的參數

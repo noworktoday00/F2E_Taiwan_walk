@@ -1,0 +1,35 @@
+// * {
+//   outline: 1px solid rgb(201, 201, 201);
+// }
+.wrap {
+  max-width: 1110px;
+  margin: 0 auto;
+}
+.search-section {
+  padding-top: 60px;
+}
+.bi-geo-alt-fill {
+  color: $warning;
+}
+.bd-bottom {
+  border-bottom: 2px solid $warning;
+}
+.search-btn {
+  letter-spacing: 15px;
+}
+.scenic-spot-card {
+  max-width: 255px;
+  img {
+    display: block;
+    max-width: 100%;
+    height: 200px;
+    object-position: center center;
+  }
+}
+
+.swipper-carousel-item{
+  max-width: 1110px;
+  height: 400px;
+  background-size: cover;
+  background-position: center center;
+}
