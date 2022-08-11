@@ -28,7 +28,7 @@ function GetAuthorizationHeader() {
 //驗證用 token
 let token = '';
 let apiAccess = {
-  'authorization': 'Bearer' + token.access_token,
+  'authorization': 'Bearer ' + token.access_token,
 };
 
 function init() {

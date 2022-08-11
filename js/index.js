@@ -1,7 +1,4 @@
 //官方驗證 api 的方法
-$(function () {
-  GetAuthorizationHeader();
-});
 function GetAuthorizationHeader() {
   const parameter = {
     grant_type: "client_credentials",
@@ -19,17 +16,18 @@ function GetAuthorizationHeader() {
     data: parameter,
     async: false,
     success: function (data) {
-      this.data = token;
+      let token = data;
+      return {
+        headers: {
+          'authorization': 'Bearer ' + token.access_token,
+        }
+      };
     },
     error: function (xhr, textStatus, thrownError) {
     }
   });
 }
-//驗證用 token
-let token = '';
-let apiAccess = {
-  'authorization': 'Bearer' + token.access_token,
-};
+
 
 function init() {
   getCarousel();
@@ -41,7 +39,7 @@ function init() {
 //輪播圖
 function getCarousel() {
   let carousel_url = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot?%24select=ScenicSpotID%2CScenicSpotName%2Cpicture&%24top=10&%24format=JSON';
-  axios.get(carousel_url, apiAccess)
+  axios.get(carousel_url, GetAuthorizationHeader())
     .then((res) => {
       let thisData = res.data;
       let str = '';
@@ -65,10 +63,11 @@ function getCarousel() {
 //顯示活動資訊
 function getActivity() {
   let str = '';
-  let activity_url = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity?%24select=ActivityName%2CPicture%2CStartTime%2CEndTime%2CAddress&%24top=10&%24format=JSON'
-  axios.get(activity_url, apiAccess)
+  let activity_url = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity?%24select=ActivityName%2CPicture%2CStartTime%2CEndTime%2CAddress%2CActivityID&%24top=10&%24format=JSON'
+  axios.get(activity_url, GetAuthorizationHeader())
     .then((res) => {
       let thisData = res.data;
+      console.log(thisData)
       thisData.forEach((item) => {
         if (item.Picture.PictureUrl1 == undefined) {
           return;
@@ -82,7 +81,7 @@ function getActivity() {
       <h3 class="mt-0">${item.ActivityName}</h3>
       <div class="row justify-content-between">
         <p class="col"><i class="bi bi-geo-alt"></i>${item.City}</p>
-        <a href="#" class="col text-end">詳細介紹<i class="bi bi-chevron-compact-right"></i></a>
+        <a href="activity-page.html?id=${item.ActivityID}" class="col text-end">詳細介紹<i class="bi bi-chevron-compact-right"></i></a>
       </div>
       </div>
     </div>
@@ -96,7 +95,7 @@ function getActivity() {
 //顯示景點資訊
 function getScenicSpot() {
   let scenicSpot_url = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot?%24select=ScenicSpotID%2CScenicSpotName%2Cpicture&%24top=4&%24format=JSON';
-  axios.get(scenicSpot_url, apiAccess)
+  axios.get(scenicSpot_url, GetAuthorizationHeader())
     .then((res) => {
       let thisData = res.data;
       let str = '';
@@ -105,9 +104,11 @@ function getScenicSpot() {
           return;
         }
         str += `<li class="scenic-spot-card mt-3">
+        <a href="page.html?id=${item.ScenicSpotID}">
         <img class="rounded-3" src="${item.Picture.PictureUrl1}" alt="${item.Picture.PictureDescription1}">
         <h3>${item.ScenicSpotName}</h3>
         <p><i class="bi bi-geo-alt"></i>台東縣</p>
+        </a>
       </li>`
       });
       console.log(res.data)
@@ -119,7 +120,7 @@ function getScenicSpot() {
 //顯示餐廳資訊
 function getRestaurant() {
   let restaurant_url = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/Restaurant?%24select=RestaurantName%2CPicture%2CAddress&%24top=4&%24format=JSON';
-  axios.get(restaurant_url, apiAccess)
+  axios.get(restaurant_url, GetAuthorizationHeader())
     .then((res) => {
       let thisData = res.data;
       let str = '';
@@ -128,9 +129,11 @@ function getRestaurant() {
           return;
         }
         str += `<li class="scenic-spot-card mt-3">
+        <a href="restaurant-page.html?id=${item.RestaurantID}">
         <img class="rounded-3" src="${item.Picture.PictureUrl1}" alt="${item.Picture.PictureDescription1}">
         <h3>${item.RestaurantName}</h3>
         <p><i class="bi bi-geo-alt"></i>台東縣</p>
+        </a>
       </li>`
       });
       console.log(res.data)

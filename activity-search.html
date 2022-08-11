@@ -31,13 +31,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link fw-bold" href="./scenic-search.html">探索景點</a>
+              <a class="nav-link fw-bold" href="./scenic-search.html"
+                >探索景點</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-bold" href="./activity-search.html">節慶活動</a>
+              <a class="nav-link fw-bold" href="./activity-search.html"
+                >節慶活動</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-bold" href="./restaurant-search.html">品嘗美食</a>
+              <a class="nav-link fw-bold" href="./restaurant-search.html"
+                >品嘗美食</a
+              >
             </li>
           </ul>
         </div>
@@ -54,36 +60,41 @@
         <form class="row justify-content-center" action="">
           <div class="col-md-3">
             <select
-            class="form-select text-primary area-select my-3 py-2"
-            aria-label="Default select example"
-          >
-            <option selected>選擇想探索的縣市...</option>
-            <option value="Taipei">台北市</option>
-            <option value="NewTaipei">新北市</option>
-            <option value="Keelung">基隆</option>
-            <option value="Taoyuan">桃園</option>
-            <option value="Hsinchu">新竹</option>
-            <option value="HsinchuCounty">新竹縣</option>
-            <option value="MiaoliCounty">苗栗縣</option>
-            <option value="Taichung">台中</option>
-            <option value="NantouCounty">南投縣</option>
-            <option value="ChanghuaCounty">彰化縣</option>
-            <option value="YunlinCounty">雲林縣</option>
-            <option value="Chiayi">嘉義</option>
-            <option value="ChiayiCounty">嘉義縣</option>
-            <option value="Tainan">台南</option>
-            <option value="Kaohsiung">高雄</option>
-            <option value="PingtungCounty">屏東縣</option>
-            <option value="YilanCounty">宜蘭縣</option>
-            <option value="HualienCounty">花蓮縣</option>
-            <option value="TaitungCounty">台東縣</option>
-            <option value="KinmenCounty">金門縣</option>
-            <option value="PenghuCounty">澎湖縣</option>
-            <option value="LienchiangCounty">連江縣</option>
-          </select>
+              class="county-select form-select text-primary my-3 py-2"
+              aria-label="Default select example"
+            >
+              <option selected value="">選擇想探索的縣市...</option>
+              <option value="/Taipei">台北市</option>
+              <option value="/NewTaipei">新北市</option>
+              <option value="/Keelung">基隆</option>
+              <option value="/Taoyuan">桃園</option>
+              <option value="/Hsinchu">新竹</option>
+              <option value="/HsinchuCounty">新竹縣</option>
+              <option value="/MiaoliCounty">苗栗縣</option>
+              <option value="/Taichung">台中</option>
+              <option value="/NantouCounty">南投縣</option>
+              <option value="/ChanghuaCounty">彰化縣</option>
+              <option value="/YunlinCounty">雲林縣</option>
+              <option value="/Chiayi">嘉義</option>
+              <option value="/ChiayiCounty">嘉義縣</option>
+              <option value="/Tainan">台南</option>
+              <option value="/Kaohsiung">高雄</option>
+              <option value="/PingtungCounty">屏東縣</option>
+              <option value="/YilanCounty">宜蘭縣</option>
+              <option value="/HualienCounty">花蓮縣</option>
+              <option value="/TaitungCounty">台東縣</option>
+              <option value="/KinmenCounty">金門縣</option>
+              <option value="/PenghuCounty">澎湖縣</option>
+              <option value="/LienchiangCounty">連江縣</option>
+            </select>
           </div>
           <div class="col-md-3">
-            <input class="col-md-12 text-primary my-3 py-2" type="date" name="date-search" id="date-search" >
+            <input
+              class="col-md-12 text-primary my-3 py-2"
+              type="date"
+              name="date-search"
+              id="date-search"
+            />
           </div>
           <div class="col-md-3">
             <input
@@ -95,76 +106,87 @@
           </div>
           <div class="col-md-3 d-grid gap-2 my-3">
             <input
-              class="btn btn-primary text-center text-white search-btn py-2"
+              class="search-button btn btn-primary text-center text-white search-btn py-2"
               type="button"
               href="#"
               value="搜尋"
-              >
+            />
           </div>
         </form>
       </div>
     </section>
+    <section class="search-result wrap">
+      <ul
+        class="result-list row justify-content-around align-items-center ps-0"
+      ></ul>
+    </section>
     <section class="suggest wrap container mt-5 p-0">
       <h2 class="mb-4"><strong> 熱門主題 </strong></h2>
-      <ul class="wrap row ps-0">
+      <ul class="category-select wrap row ps-0">
         <li class="col-md-3 px-1 py-3">
           <a
-            class="d-block text-center nature-view"
-            style="
+            class="h4 d-block text-center nature-view"
+            data-category="節慶活動"  style="
               background-image: url(./img/searchPageImg/unsplash_qDZ-Xd8dX6w.png);
             "
             href="#"
           >
-            <h4>節慶活動</h4></a
+            節慶活動</a
           >
         </li>
         <li class="col-md-3 px-1 py-3">
           <a
-            class="d-block text-center factory"
-            style="background-image: url(./img/searchPageImg/unsplash_qDBbM9Erwo4.png)"
+            class="h4 d-block text-center factory"
+            data-category="自行車活動"  style="
+              background-image: url(./img/searchPageImg/unsplash_qDBbM9Erwo4.png);
+            "
             href="#"
           >
-            <h4>自行車活動</h4></a
+            自行車活動</a
           >
         </li>
         <li class="col-md-3 px-1 py-3">
           <a
-            class="d-block text-center rest"
-            style="background-image: url(./img/searchPageImg/Rectangle\ 94-1.png)"
+            class="h4 d-block text-center rest"
+            data-category="遊憩活動"  style="
+              background-image: url(./img/searchPageImg/Rectangle\ 94-1.png);
+            "
             href="#"
           >
-            <h4>遊憩活動</h4></a
+            遊憩活動</a
           >
         </li>
         <li class="col-md-3 px-1 py-3">
           <a
-            class="d-block text-center farm"
-            style="background-image: url(./img/searchPageImg/Rectangle\ 95.png)"
+            class="h4 d-block text-center farm"
+            data-category="產業文化活動"  style="background-image: url(./img/searchPageImg/Rectangle\ 95.png)"
             href="#"
           >
-            <h4>產業文化活動</h4></a
+            產業文化活動</a
           >
         </li>
         <li class="col-md-3 px-1 py-3">
           <a
-            class="d-block text-center nature"
+            class="h4 d-block text-center nature"
+            data-category="年度活動"
             style="
               background-image: url(./img/searchPageImg/unsplash_7tvbRQ5AKs4.png);
             "
             href="#"
           >
-            <h4>年度活動</h4></a
+            年度活動</a
           >
         </li>
         <li class="col-md-3 px-1 py-3">
           <a
-            class="d-block text-center spring"
+            class="h4 d-block text-center spring"
+            data-category="四季活動"
             style="
               background-image: url(./img/searchPageImg/unsplash_fS0zfcOYa4A.png);
             "
             href="#"
           >
-            <h4>四季活動</h4></a
+            四季活動</a
           >
         </li>
       </ul>
@@ -190,6 +212,6 @@
     ></script>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./test.js"></script>
+    <script src="./js/activity-search.js"></script>
   </body>
 </html>
