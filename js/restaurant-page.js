@@ -1,7 +1,4 @@
 //官方驗證 api 的方法
-$(function () {
-  GetAuthorizationHeader();
-});
 function GetAuthorizationHeader() {
   const parameter = {
     grant_type: "client_credentials",
@@ -19,18 +16,17 @@ function GetAuthorizationHeader() {
     data: parameter,
     async: false,
     success: function (data) {
-      this.data = token;
+      let token = data;
+      return {
+        headers: {
+          'authorization': 'Bearer ' + token.access_token,
+        }
+      };
     },
     error: function (xhr, textStatus, thrownError) {
     }
   });
 }
-//驗證用 token
-let token = '';
-let apiAccess = {
-  'authorization': 'Bearer ' + token.access_token,
-};
-
 function init() {
   getScenicDetail();
   restaurantRecommend();
@@ -41,7 +37,7 @@ function getScenicDetail() {
   // 拆解網址取得 ID
   const id = location.href.split('=')[1];
   axios.get(`https://tdx.transportdata.tw/api/basic/v2/Tourism/Restaurant?%24filter=contains%28RestaurantID%2C%27${id}%27%29&%24top=30&%24format=JSON
-    `, apiAccess)
+    `, GetAuthorizationHeader())
     .then((res) => {
       let thisData = res.data[0];
       console.log(thisData);
@@ -74,7 +70,7 @@ function getScenicDetail() {
 
 function restaurantRecommend() {
   let restaurantSpot_url = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/Restaurant?%24top=4&%24format=JSON';
-  axios.get(restaurantSpot_url, apiAccess)
+  axios.get(restaurantSpot_url, GetAuthorizationHeader())
     .then((res) => {
       let thisData = res.data;
       let str = '';

@@ -1,7 +1,4 @@
 //官方驗證 api 的方法
-$(function () {
-  GetAuthorizationHeader();
-});
 function GetAuthorizationHeader() {
   const parameter = {
     grant_type: "client_credentials",
@@ -19,17 +16,17 @@ function GetAuthorizationHeader() {
     data: parameter,
     async: false,
     success: function (data) {
-      this.data = token;
+      let token = data;
+      return {
+        headers: {
+          'authorization': 'Bearer ' + token.access_token,
+        }
+      };
     },
     error: function (xhr, textStatus, thrownError) {
     }
   });
 }
-//驗證用 token
-let token = '';
-let apiAccess = {
-  'authorization': 'Bearer ' + token.access_token,
-};
 
 //DOM select
 const countySelect = document.querySelector('.county-select');
@@ -41,7 +38,7 @@ searchButton.addEventListener("click", function () {
   const area = countySelect.value;
   console.log(area);
   let countySearchUrl = `https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot${area}?%24top=20&%24format=JSON`
-  axios.get(countySearchUrl, apiAccess)
+  axios.get(countySearchUrl, GetAuthorizationHeader())
     .then((res) => {
       const thisData = res.data;
       let str = '';
@@ -72,7 +69,7 @@ categorySelect.addEventListener('click',function(e){
   const area = countySelect.value;
   console.log(category , area);
   let categoryUrl = `https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot${area}?%24filter=contains%28class1%2C%27${category}%27%29&%24top=20&%24format=JSON`;
-  axios.get(categoryUrl, apiAccess)
+  axios.get(categoryUrl, GetAuthorizationHeader())
     .then((res) => {
       const thisData = res.data;
       console.log(thisData);

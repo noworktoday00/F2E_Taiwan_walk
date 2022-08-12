@@ -33,11 +33,40 @@ const countySelect = document.querySelector('.county-select');
 const searchButton = document.querySelector('.search-button');
 const categorySelect = document.querySelector('.category-select');
 
+function init() {
+  getScenicDetail()
+}
+
+// 渲染景點資料
+function getScenicDetail() {
+  // 拆解網址取得 ID
+  const keyword = location.href.split('=')[1];
+  axios.get(`https://tdx.transportdata.tw/api/basic/v2/Tourism/Restaurant?%24filter=contains%28RestaurantName%2C%27${keyword}%27%29&%24format=JSON
+    `, GetAuthorizationHeader())
+    .then((res) => {
+      let thisData = res.data;
+      let str = '';
+      thisData.forEach((item) => {
+        if (item.Picture.PictureUrl1 == undefined) {
+          return;
+        }
+        str += `<li class="scenic-spot-card col-6 mt-3 p-3">
+          <a href="page.html?id=${item.RestaurantID}">
+            <img class="rounded-3" src="${item.Picture.PictureUrl1}" alt="${item.Picture.PictureDescription1}">
+            <h3 class="text-center my-3">${item.RestaurantName}</h3>
+            <p><i class="bi bi-geo-alt"></i>${item.City}</p>
+          </a>
+          </li>`
+        document.querySelector('.result-list').innerHTML = str;
+      });
+    });
+};
+
 //地區篩選
 searchButton.addEventListener("click", function () {
   const area = countySelect.value;
   console.log(area);
-  let countySearchUrl = `https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity${area}?%24top=30&%24format=JSON`
+  let countySearchUrl = `https://tdx.transportdata.tw/api/basic/v2/Tourism/Restaurant${area}?%24top=20&%24format=JSON`
   axios.get(countySearchUrl, GetAuthorizationHeader())
     .then((res) => {
       const thisData = res.data;
@@ -46,10 +75,11 @@ searchButton.addEventListener("click", function () {
         if (item.Picture.PictureUrl1 == undefined) {
           return;
         }
+        console.log(thisData)
         str += `<li class="scenic-spot-card col-6 mt-3 p-3">
-          <a href="activity-page.html?id=${item.ActivityID}">
+          <a href="page.html?id=${item.RestaurantID}">
             <img class="rounded-3" src="${item.Picture.PictureUrl1}" alt="${item.Picture.PictureDescription1}">
-            <h3 class="text-center my-3">${item.ActivityName}</h3>
+            <h3 class="text-center my-3">${item.RestaurantName}</h3>
             <p><i class="bi bi-geo-alt"></i>${item.City}</p>
           </a>
           </li>`
@@ -58,34 +88,4 @@ searchButton.addEventListener("click", function () {
     });
 });
 
-//類別篩選
-categorySelect.addEventListener('click', function (e) {
-  e.preventDefault();
-  console.log(e.target.nodeName);
-  if (e.target.nodeName !== 'A') {
-    return;
-  };
-  const category = e.target.getAttribute('data-category');
-  const area = countySelect.value;
-  console.log(category, area);
-  let categoryUrl = `https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity${area}?%24filter=contains%28class1%2C%27${category}%27%29&%24top=20&%24format=JSON`;
-  axios.get(categoryUrl, GetAuthorizationHeader())
-    .then((res) => {
-      const thisData = res.data;
-      console.log(thisData);
-      let str = '';
-      thisData.forEach((item) => {
-        if (item.Picture.PictureUrl1 == undefined) {
-          return;
-        }
-        str += `<li class="scenic-spot-card col-6 p-3 mt-3">
-          <a href="activity-page.html?id=${item.ActivityID}">
-            <img class="rounded-3" src="${item.Picture.PictureUrl1}" alt="${item.Picture.PictureDescription1}">
-            <h3 class="text-center my-3">${item.ActivityName}</h3>
-            <p><i class="bi bi-geo-alt"></i>${item.City}</p>
-          </a>
-          </li>`
-        document.querySelector('.result-list').innerHTML = str;
-      });
-    });
-});
+init();

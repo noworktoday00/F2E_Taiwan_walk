@@ -1,35 +1,33 @@
 //官方驗證 api 的方法
-$(function () {
-    GetAuthorizationHeader();
-  });
-  function GetAuthorizationHeader() {
-    const parameter = {
-      grant_type: "client_credentials",
-      client_id: "noworktoday00-1525baf0-153e-4e8e",
-      client_secret: "38c52ffb-675e-4d96-a5fb-b726466b329a"
-    };
-  
-    let auth_url = "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token";
-  
-    $.ajax({
-      type: "POST",
-      url: auth_url,
-      crossDomain: true,
-      dataType: 'JSON',
-      data: parameter,
-      async: false,
-      success: function (data) {
-        this.data = token;
-      },
-      error: function (xhr, textStatus, thrownError) {
-      }
-    });
-  }
-  //驗證用 token
-  let token = '';
-  let apiAccess = {
-    'authorization': 'Bearer ' + token.access_token,
+function GetAuthorizationHeader() {
+  const parameter = {
+    grant_type: "client_credentials",
+    client_id: "noworktoday00-1525baf0-153e-4e8e",
+    client_secret: "38c52ffb-675e-4d96-a5fb-b726466b329a"
   };
+
+  let auth_url = "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token";
+
+  $.ajax({
+    type: "POST",
+    url: auth_url,
+    crossDomain: true,
+    dataType: 'JSON',
+    data: parameter,
+    async: false,
+    success: function (data) {
+      let token = data;
+      return {
+        headers: {
+          'accept': 'application/json' ,
+          'authorization': 'Bearer ' + token.access_token,
+        }
+      };
+    },
+    error: function (xhr, textStatus, thrownError) {
+    }
+  });
+}
   
   function init() {
     getScenicDetail();
@@ -42,7 +40,7 @@ $(function () {
     const id = location.href.split('=')[1];
     console.log(id);
     axios.get(`https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity?%24filter=contains%28ActivityID%2C%27${id}%27%29&%24top=30&%24format=JSON
-      `, apiAccess)
+      `, GetAuthorizationHeader())
       // https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity?%24filter=contains%28ActivityID%2C%27C2_315080000H_502117%27%29&%24format=JSON
       .then((res) => {
         let thisData = res.data[0];
@@ -76,7 +74,7 @@ $(function () {
   
   function activityRecommend() {
     let scenicSpot_url = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/Activity?%24top=8&%24format=JSON';
-    axios.get(scenicSpot_url, apiAccess)
+    axios.get(scenicSpot_url, GetAuthorizationHeader())
       .then((res) => {
         let thisData = res.data;
         let str = '';

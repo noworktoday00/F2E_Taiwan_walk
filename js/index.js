@@ -47,7 +47,7 @@ function getCarousel() {
         if (item.Picture.PictureUrl1 == undefined) {
           return;
         }
-        str += `<div class="carousel-item swipper-carousel-item active  rounded-3" style="background-image: url(${item.Picture.PictureUrl1});">
+        str += `<div class="carousel-item swipper-carousel-item  rounded-3" style="background-image: url(${item.Picture.PictureUrl1});">
         <div class="carousel-caption d-none d-md-block">
           <h5>${item.ScenicSpotName}</h5>
         </div>
@@ -143,11 +143,23 @@ function getRestaurant() {
 }
 
 //探索搜尋
-const activityTypeSelect = document.querySelector(".activity-type-select");
-const searchSend = document.querySelector(".search-send");
-searchSend.addEventListener("click", function () {
-  const activityTypeSelectValue = activityTypeSelect.value;
-  console.log(activityTypeSelectValue);
+let typeSelect = document.querySelector('#type-select');
+let searchText = document.querySelector('#search-text');
+let searchSend = document.querySelector('#search-send');
+
+searchSend.addEventListener('click',function(){
+  const type = typeSelect.value;
+  const keyword = searchText.value;
+  if(type == 'ScenicSpot'){
+    location.href = `./scenic-result.html?filter=${keyword}`
+  }
+  if(type == 'Activity'){
+    location.href = `./activity-result.html?filter=${keyword}`
+  }
+  if(type == 'Restaurant'){
+    location.href = `./restaurant-result.html?filter=${keyword}`
+  }
 })
 
 init();
+

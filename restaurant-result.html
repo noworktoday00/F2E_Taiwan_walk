@@ -31,9 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link fw-bold" href="./scenic-search.html"
-                >探索景點</a
-              >
+              <a class="nav-link fw-bold" href="./scenic-search.html">探索景點</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fw-bold" href="./activity-search.html"
@@ -53,7 +51,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb h4">
           <li class="breadcrumb-item"><a href="./index.html">首頁</a></li>
-          <li class="breadcrumb-item active" aria-current="page">節慶活動</li>
+          <li class="breadcrumb-item active" aria-current="page">景點探索</li>
         </ol>
       </nav>
       <div class="container">
@@ -88,18 +86,10 @@
               <option value="/LienchiangCounty">連江縣</option>
             </select>
           </div>
-          <div class="col-md-3">
-            <input
-              class="col-md-12 text-primary my-3 py-2"
-              type="date"
-              name="date-search"
-              id="date-search"
-            />
-          </div>
-          <div class="col-md-3">
+          <div class="col-md-6">
             <input
               type="text"
-              class="form-control my-3 py-2"
+              class="col-md-6 form-control my-3 py-2"
               id="search-place"
               placeholder="你想去哪裡？請輸入關鍵字"
             />
@@ -119,77 +109,6 @@
       <ul
         class="result-list row justify-content-around align-items-center ps-0"
       ></ul>
-    </section>
-    <section class="suggest wrap container mt-5 p-0">
-      <h2 class="mb-4"><strong> 熱門主題 </strong></h2>
-      <ul class="category-select wrap row ps-0 row-cols-2 row-cols-lg-4">
-        <li class="col px-1 py-3">
-          <a
-            class="h4 d-block text-center nature-view"
-            data-category="節慶活動"  style="
-              background-image: url(./img/searchPageImg/unsplash_qDZ-Xd8dX6w.png);
-            "
-            href="#"
-          >
-            節慶活動</a
-          >
-        </li>
-        <li class="col px-1 py-3">
-          <a
-            class="h4 d-block text-center factory"
-            data-category="自行車活動"  style="
-              background-image: url(./img/searchPageImg/unsplash_qDBbM9Erwo4.png);
-            "
-            href="#"
-          >
-            自行車活動</a
-          >
-        </li>
-        <li class="col px-1 py-3">
-          <a
-            class="h4 d-block text-center rest"
-            data-category="遊憩活動"  style="
-              background-image: url(./img/searchPageImg/Rectangle\ 94-1.png);
-            "
-            href="#"
-          >
-            遊憩活動</a
-          >
-        </li>
-        <li class="col px-1 py-3">
-          <a
-            class="h4 d-block text-center farm"
-            data-category="產業文化活動"  style="background-image: url(./img/searchPageImg/Rectangle\ 95.png)"
-            href="#"
-          >
-            產業文化活動</a
-          >
-        </li>
-        <li class="col px-1 py-3">
-          <a
-            class="h4 d-block text-center nature"
-            data-category="年度活動"
-            style="
-              background-image: url(./img/searchPageImg/unsplash_7tvbRQ5AKs4.png);
-            "
-            href="#"
-          >
-            年度活動</a
-          >
-        </li>
-        <li class="col px-1 py-3">
-          <a
-            class="h4 d-block text-center spring"
-            data-category="四季活動"
-            style="
-              background-image: url(./img/searchPageImg/unsplash_fS0zfcOYa4A.png);
-            "
-            href="#"
-          >
-            四季活動</a
-          >
-        </li>
-      </ul>
     </section>
     <footer class="footer bg-primary p-3 fixed-bottom">
       <p class="text-center text-white mt-2">#The F2E 3rd Week01 #Breakfast</p>
@@ -212,6 +131,6 @@
     ></script>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./js/activity-search.js"></script>
+    <script src="./js/restaurant-result.js"></script>
   </body>
 </html>
